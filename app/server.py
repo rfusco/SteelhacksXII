@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
-from fetch_data import get_all_conversations, get_all_people, get_person_by_name, get_conversations_by_person
+from handle_data import get_all_conversations, get_all_people, get_person_by_name, get_conversations_by_person
 
 app = Flask(__name__)
 CORS(app)

@@ -94,3 +94,65 @@ def get_conversations_by_person(name: str):
     # 4. Serialize to JSON-safe dicts
     return [serialize_conversation(Conversation.from_dict(c)) for c in convo_docs]
 
+def add_conversation(conversation: Conversation) -> bool:
+    """Add the conversation to the database.
+
+    Args:
+        conversation (Conversation): The conversation to add
+
+    Returns:
+        Success of the addition
+    """
+    return conversations.insert_one(Conversation.to_dict()).inserted_id is not None
+
+
+def add_person(person: Person) -> bool:
+    """
+    Add the person to the database.
+
+    Args:
+        person (Person): The person to add
+
+    Returns:
+        Success of the addition
+    """
+    people.insert_one(Person.to_dict()).inserted_id is not None
+
+def update_person_name(person_id: str, name: str) -> bool:
+    """
+    Updates the name of the person specified by id.
+
+    Args:
+        person_id (str): The ObjectId of the person as a string.
+        name (str): The new name to set.
+
+    Returns:
+        bool: True if a document was updated, False otherwise.
+    """
+    return people.update_one({"_id": ObjectId(person_id)}, {"$set": {"name": name}}).modified_count > 0
+
+def update_person_role_by_id(person_id: str, role: str) -> bool:
+    """
+    Updates the role of the person specified by id.
+
+    Args:
+        person_id (str): The ObjectId of the person as a string.
+        role (str): The new role to set.
+
+    Returns:
+        bool: True if a document was updated, False otherwise.
+    """
+    return people.update_one({"_id": ObjectId(person_id)}, {"$set": {"role": role}}).modified_count > 0
+
+def update_person_role_by_name(name: str, role: str) -> bool:
+    """
+    Updates the role of the person specified by name.
+
+    Args:
+        name (str): The name of the person as a string.
+        role (str): The new role to set.
+
+    Returns:
+        bool: True if a document was updated, False otherwise.
+    """
+    return people.update_one({"name": name}, {"$set": {"role": role}}).modified_count > 0
