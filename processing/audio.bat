@@ -1,0 +1,1 @@
+python C:\Users\nateo\Desktop\SteelhacksXII\whisper-diarization\diarize_parallel.py -a "../files/audio/Recording.mp3"
