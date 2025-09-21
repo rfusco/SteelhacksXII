@@ -1,3 +1,31 @@
+# Ignore common virtual environment directories
 .venv/
-app/__pycache__/
-*.env
+.venv311/
+env/
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# macOS
+.DS_Store
+
+# Logs and local env files
+*.log
+.env
+.env.*
+
+# Node
+node_modules/
+
+# Ignore client/build (create-react-app output) and other generated assets
+client/build/
+
+# Keep this file - do not replace with a single '*'
