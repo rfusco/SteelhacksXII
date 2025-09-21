@@ -137,15 +137,15 @@ function App() {
           }}
         >
           <div style={{ flex: "1", textAlign: "center" }}>
-            <div style={labelStyle}>Last 72h Flags</div>
+            <div style={labelStyle}>Flags (Last 72h)</div>
             <div style={valueStyle}>{summary.flags}</div>
           </div>
           <div style={{ flex: "1", textAlign: "center" }}>
-            <div style={labelStyle}>Conversations</div>
+            <div style={labelStyle}>Conversations (Last 72h)</div>
             <div style={valueStyle}>{summary.convos}</div>
           </div>
           <div style={{ flex: "1", textAlign: "center" }}>
-            <div style={labelStyle}>Sentiment</div>
+            <div style={labelStyle}>Sentiment (Last 72h)</div>
             <div style={valueStyle}>{summary.sentiment}</div>
           </div>
         </div>
