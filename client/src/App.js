@@ -1,6 +1,13 @@
 // App.js
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+function sentimentLabel(score) {
+  if (score <= -0.6) return "Terrible";
+  if (score <= -0.2) return "Bad";
+  if (score < 0.2) return "Fair";
+  if (score < 0.6) return "Good";
+  return "Excellent";
+}
 
 // Main dashboard component
 function App() {
@@ -56,7 +63,7 @@ function App() {
         setSummary({
           flags: totalFlags,
           convos: recentConvos.length,
-          sentiment: "XX", // placeholder for now
+          sentiment: "Fair", // placeholder for now
         });
       });
   }, []);
@@ -151,7 +158,7 @@ function App() {
         </div>
 
         {/* Caretakers list */}
-        <h2 style={sectionTitle}>Caretakers</h2>
+        <h2 style={sectionTitle}>Care Partners</h2>
         {caretakers.map((c, i) => {
           const hasAlerts = c.alerts >= 1;
           return (
@@ -259,7 +266,11 @@ function App() {
                 </div>
                 <div style={{ textAlign: "center", flex: "1" }}>
                   <div style={labelStyle}>Sentiment</div>
-                  <div style={valueStyle}>{conv.sentiment || "Unknown"}</div>
+                  <div style={valueStyle}>
+                    {conv.sentiment != null
+                      ? `${conv.sentiment.toFixed(2)} (${sentimentLabel(conv.sentiment)})`
+                      : "Unknown"}
+                  </div>
                 </div>
               </div>
               {/* Summary section */}

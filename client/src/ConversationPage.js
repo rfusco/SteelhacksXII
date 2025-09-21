@@ -1,7 +1,13 @@
 // ConversationPage.js
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
+function sentimentLabel(score) {
+  if (score <= -0.6) return "Terrible";
+  if (score <= -0.2) return "Bad";
+  if (score < 0.2) return "Fair";
+  if (score < 0.6) return "Good";
+  return "Excellent";
+}
 function ConversationPage() {
   const { convId } = useParams();
   const [conversation, setConversation] = useState(null);
@@ -106,10 +112,15 @@ function ConversationPage() {
               <div style={labelStyle}>Flags</div>
               <div style={valueStyle}>{conversation.flags ? conversation.flags.length : 0}</div>
             </div>
-            <div style={{ textAlign: "center", flex: "1" }}>
-              <div style={labelStyle}>Sentiment</div>
-              <div style={valueStyle}>{conversation.sentiment || "Unknown"}</div>
-            </div>
+              <div style={{ textAlign: "center", flex: "1" }}>
+                <div style={labelStyle}>Sentiment</div>
+                <div style={valueStyle}>
+                  {conversation.sentiment != null
+                    ? `${conversation.sentiment.toFixed(2)} (${sentimentLabel(conversation.sentiment)})`
+                    : "Unknown"}
+                </div>
+              </div>
+
           </div>
 
           <div

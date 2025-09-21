@@ -3,12 +3,12 @@ from datetime import datetime
 
 from bson import ObjectId
 from handle_data import Person, Conversation, Sentence, people
-
+from sentiment import analyze_sentiment, analyze_conversation
 def parse_srt_time(time_str: str) -> datetime:
     """Parse SRT time format 'HH:MM:SS,ms' into a datetime object."""
     h, m, s_ms = time_str.split(":")
     s, ms = s_ms.split(",")
-    return datetime(1900, 1, 1, int(h), int(m), int(s), int(ms) * 1000)
+    return datetime.now()
 
 def srt_to_conversation_rnbrad(srt_text: str) -> Conversation:
     """
@@ -27,6 +27,7 @@ def srt_to_conversation_rnbrad(srt_text: str) -> Conversation:
     }
 
     sentences = []
+    flags = []
     participants_set = set([ryan_doc["_id"], brad_doc["_id"]])
 
     blocks = srt_text.strip().split("\n\n")
@@ -56,12 +57,15 @@ def srt_to_conversation_rnbrad(srt_text: str) -> Conversation:
         sentence = Sentence(
             speaker=speaker_oid,
             text=text,
-            sentiment="",
+            sentiment=analyze_sentiment(text),
             start_time=start_time,
             total_time=total_seconds
         )
-        sentences.append(sentence)
 
+        sentences.append(sentence)
+        if(sentence.sentiment['compound'] <= -0.):  # Flag very negative sentences
+            flags.append(sentences.index(sentence))
+    # Conversation metadata
     conversation_start = sentences[0].start_time if sentences else datetime.now()
     total_time = sum(s.total_time for s in sentences)
 
@@ -69,7 +73,9 @@ def srt_to_conversation_rnbrad(srt_text: str) -> Conversation:
         participants=list(participants_set),
         start_time=conversation_start,
         total_time=total_time,
-        sentences=sentences
+        sentences=sentences,
+        sentiment= analyze_conversation(sentences),
+        flags=flags
     )
 
     return convo

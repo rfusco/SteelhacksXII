@@ -1,6 +1,13 @@
 // PersonPage.js
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+function sentimentLabel(score) {
+  if (score <= -0.6) return "Terrible";
+  if (score <= -0.2) return "Bad";
+  if (score < 0.2) return "Fair";
+  if (score < 0.6) return "Good";
+  return "Excellent";
+}
 
 function PersonPage() {
   const { personName } = useParams();
@@ -79,7 +86,7 @@ function PersonPage() {
   return (
     <div style={pageStyle}>
       <div style={containerStyle}>
-        <h2 style={sectionTitle}>Caretaker Detail</h2>
+        <h2 style={sectionTitle}>Care Partner Detail</h2>
         <div
           style={{
             ...baseCardStyle,
@@ -149,10 +156,14 @@ function PersonPage() {
                   <div style={labelStyle}>Flags</div>
                   <div style={valueStyle}>{conv.flags ? conv.flags.length : 0}</div>
                 </div>
-                <div style={{ textAlign: "center", flex: "1" }}>
-                  <div style={labelStyle}>Sentiment</div>
-                  <div style={valueStyle}>{conv.sentiment || "Unknown"}</div>
-                </div>
+                  <div style={{ textAlign: "center", flex: "1" }}>
+                    <div style={labelStyle}>Sentiment</div>
+                    <div style={valueStyle}>
+                      {conv.sentiment != null
+                        ? `${conv.sentiment.toFixed(2)} (${sentimentLabel(conv.sentiment)})`
+                        : "Unknown"}
+                    </div>
+                  </div>
               </div>
               <div
                 style={{
