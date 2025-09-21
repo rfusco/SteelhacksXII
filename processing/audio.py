@@ -1,5 +1,5 @@
 import whisper, os
-import classes
+import models
 
 
 
