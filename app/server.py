@@ -5,7 +5,9 @@ from handle_data import (
     get_all_people,
     get_person_by_name,
     get_conversations_by_person,  # not used anymore, but leaving import
+    add_conversation, update_person_conversations_by_id
 )
+from parse import srt_to_conversation_rnbrad, srt_text
 
 app = Flask(__name__)
 CORS(app)
@@ -29,6 +31,20 @@ def count_flags_for_person(person_name: str) -> int:
     total_flags = sum(len(conv.get("flags", [])) for conv in person_conversations)
     return total_flags
 
+@app.route('/new-audio')
+def handle():
+    # process audio and return srt as string
+    
+    # parse string and store conversation in db
+    conversation = srt_to_conversation_rnbrad(srt_text)
+    success = add_conversation(conversation)
+
+    # add conversation to all participants
+    for participant in conversation.participants:
+        update_person_conversations_by_id(participant, conversation._id)
+    
+    if(success):   return f"Conversation file successfully added", 200
+    else: return "Error uploading conversation file"
 
 # /people endpoint to return all people and data attached directly to their objects (name, role, conversations)
 @app.route('/people')
