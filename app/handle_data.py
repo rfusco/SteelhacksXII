@@ -103,7 +103,7 @@ def add_conversation(conversation: Conversation) -> bool:
     Returns:
         Success of the addition
     """
-    return conversations.insert_one(Conversation.to_dict()).inserted_id is not None
+    return conversations.insert_one(conversation.to_dict()).inserted_id is not None
 
 
 def add_person(person: Person) -> bool:
@@ -116,7 +116,7 @@ def add_person(person: Person) -> bool:
     Returns:
         Success of the addition
     """
-    people.insert_one(Person.to_dict()).inserted_id is not None
+    people.insert_one(person.to_dict()).inserted_id is not None
 
 def update_person_name(person_id: str, name: str) -> bool:
     """
@@ -156,3 +156,39 @@ def update_person_role_by_name(name: str, role: str) -> bool:
         bool: True if a document was updated, False otherwise.
     """
     return people.update_one({"name": name}, {"$set": {"role": role}}).modified_count > 0
+
+def update_person_conversations_by_name(name: str, convoid: str) -> bool:
+    """
+    Updates the conversations of the person specified by name by adding a new conversation ID.
+
+    Args:
+        name (str): The name of the person whose conversations should be updated.
+        convoid (str): The ObjectId (as string) of the conversation to add.
+
+    Returns:
+        bool: True if the conversation ID was added or updated, False otherwise.
+    """
+    result = people.update_one(
+        {"name": name},
+        {"$addToSet": {"conversations": ObjectId(convoid)}}
+    )
+    # $addToSet ensures we don't add duplicates
+    return result.modified_count > 0
+
+def update_person_conversations_by_id(person_id: str, convoid: str) -> bool:
+    """
+    Updates the conversations of the person specified by ObjectId by adding a new conversation ID.
+
+    Args:
+        person_id (str): The ObjectId of the person as a string.
+        convoid (str): The ObjectId (as string) of the conversation to add.
+
+    Returns:
+        bool: True if the conversation ID was added or updated, False otherwise.
+    """
+    result = people.update_one(
+        {"_id": ObjectId(person_id)},
+        {"$addToSet": {"conversations": ObjectId(convoid)}}
+    )
+    # $addToSet ensures we don't add duplicates
+    return result.modified_count > 0
