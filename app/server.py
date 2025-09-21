@@ -10,6 +10,26 @@ from handle_data import (
 app = Flask(__name__)
 CORS(app)
 
+def count_flags_for_person(person_name: str) -> int:
+    person = get_person_by_name(person_name)
+    if not person:
+        return -1  # person not found
+
+    # Get conversation IDs stored on this person
+    conversation_ids = person.get("conversations", [])
+    
+    # Pull all conversations and filter by those IDs
+    all_conversations = get_all_conversations()
+    person_conversations = [
+        conv for conv in all_conversations
+        if str(conv.get("_id")) in [str(cid) for cid in conversation_ids]
+    ]
+
+    # Count flags
+    total_flags = sum(len(conv.get("flags", [])) for conv in person_conversations)
+    return total_flags
+
+
 # /people endpoint to return all people and data attached directly to their objects (name, role, conversations)
 @app.route('/people')
 def people():
@@ -52,21 +72,3 @@ def flags_endpoint(person_name):
 
 if __name__ == '__main__':
     app.run(debug=True)
-def count_flags_for_person(person_name: str) -> int:
-    person = get_person_by_name(person_name)
-    if not person:
-        return -1  # person not found
-
-    # Get conversation IDs stored on this person
-    conversation_ids = person.get("conversations", [])
-    
-    # Pull all conversations and filter by those IDs
-    all_conversations = get_all_conversations()
-    person_conversations = [
-        conv for conv in all_conversations
-        if str(conv.get("_id")) in [str(cid) for cid in conversation_ids]
-    ]
-
-    # Count flags
-    total_flags = sum(len(conv.get("flags", [])) for conv in person_conversations)
-    return total_flags
