@@ -156,3 +156,5 @@ def update_person_role_by_name(name: str, role: str) -> bool:
         bool: True if a document was updated, False otherwise.
     """
     return people.update_one({"name": name}, {"$set": {"role": role}}).modified_count > 0
+
+print(get_person_by_name("Brad"))
