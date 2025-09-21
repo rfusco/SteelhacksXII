@@ -24,3 +24,5 @@ We learned a lot about networking and databases, as well as planning out workflo
 
 ## What's Next for ElderGuardian
 The next step will be to implement continuous voice monitoring with a standalone device for improved surveillance and quality.
+
+Credit: https://github.com/MahmoudAshraf97/whisper-diarization
