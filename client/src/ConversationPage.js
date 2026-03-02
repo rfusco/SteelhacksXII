@@ -8,10 +8,14 @@ function sentimentLabel(score) {
   if (score < 0.6) return "Good";
   return "Excellent";
 }
+
 function ConversationPage() {
-  const { convId } = useParams();
+  //get convid from url
+  const  convId  = useParams().convId;
+  //react component state to hold conversation details
   const [conversation, setConversation] = useState(null);
 
+  //run after component appears on screen
   useEffect(() => {
     async function fetchConversation() {
       try {
@@ -136,7 +140,7 @@ function ConversationPage() {
           </div>
         </div>
 
-        {/* Flagged Dialogue */}
+        {/*Render Flagged Sentences */}
         {flaggedSentences.length > 0 && (
           <div
             style={{

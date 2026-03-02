@@ -85,88 +85,103 @@ def srt_to_conversation_rnbrad(srt_text: str) -> Conversation:
 # -------------------------
 srt_text = """
 1
-00:00:00,780 --> 00:00:02,320
-Speaker 0: Hey Bradley, how are you doing today?
+00:00:00,000 --> 00:00:02,200
+Speaker 0: Good morning, Mrs. Thompson — how are you feeling today?
 
 2
-00:00:04,080 --> 00:00:04,720
-Speaker 1: I'm doing great.
+00:00:02,400 --> 00:00:04,200
+Speaker 1: Good morning, Doctor. I'm feeling pretty well, thank you.
 
 3
-00:00:04,840 --> 00:00:05,180
-Speaker 1: How are you?
+00:00:04,400 --> 00:00:06,000
+Speaker 0: That's wonderful to hear. Any new aches or concerns since our last visit?
 
 4
-00:00:06,100 --> 00:00:06,960
-Speaker 0: I'm doing pretty good.
+00:00:06,200 --> 00:00:08,400
+Speaker 1: Just a little stiffness in my knees in the morning, but it eases after I move around.
 
 5
-00:00:07,240 --> 00:00:10,440
-Speaker 0: I mean it's 2 37 a.m.
+00:00:08,600 --> 00:00:11,000
+Speaker 0: Okay — morning stiffness that improves with activity can be normal. Are you walking as much as before?
 
 6
-00:00:10,800 --> 00:00:12,880
-Speaker 0: And how many hours do we have left?
+00:00:11,200 --> 00:00:13,100
+Speaker 1: Not as much lately; I worry about falling, so I've been careful.
 
 7
-00:00:13,120 --> 00:00:13,700
-Speaker 0: I'm so tired.
+00:00:13,300 --> 00:00:15,600
+Speaker 0: That's understandable. We can talk about simple balance exercises and a safe walking plan to build confidence.
 
 8
-00:00:13,800 --> 00:00:14,800
-Speaker 0: I can't even do the math.
+00:00:15,800 --> 00:00:18,200
+Speaker 1: I would like that. I miss my walks to the park.
 
 9
-00:00:15,500 --> 00:00:18,020
-Speaker 1: We have like seven or eight hours left, I believe.
+00:00:18,400 --> 00:00:20,500
+Speaker 0: We'll make a plan so you can return safely. How have you been sleeping?
 
 10
-00:00:18,680 --> 00:00:21,060
-Speaker 0: Do you think we're gonna be able to finish the project in time?
+00:00:20,700 --> 00:00:22,300
+Speaker 1: Sleep's been okay — I wake a few times, but I usually doze back off.
 
 11
-00:00:23,000 --> 00:00:23,660
-Speaker 1: I think we will.
+00:00:22,500 --> 00:00:24,800
+Speaker 0: That sounds normal for your age. Any new medications or side effects to report?
 
 12
-00:00:24,000 --> 00:00:26,500
-Speaker 1: If this test right here works, I think we will.
+00:00:25,000 --> 00:00:27,200
+Speaker 1: No new ones. The heart medicine seems to agree with me.
 
 13
-00:00:27,800 --> 00:00:35,160
-Speaker 0: Yeah, this test would be a pretty big leap because then we can start implementing the other functions and squirt in our program.
+00:00:27,400 --> 00:00:29,600
+Speaker 0: Great — your blood pressure readings in the chart look stable. Have you had any dizziness or lightheadedness?
 
 14
-00:00:35,880 --> 00:00:39,860
-Speaker 1: Yeah, if we don't finish that then I think I'm just going to squirt myself.
+00:00:29,800 --> 00:00:31,400
+Speaker 1: Only once last week when I stood up quickly. It passed after a moment.
 
 15
-00:00:40,660 --> 00:00:44,060
-Speaker 0: Yeah, I'd probably squirt squirt my brains out if I don't finish.
+00:00:31,600 --> 00:00:34,000
+Speaker 0: We'll note that. I'll review your blood pressure and adjust if needed, and suggest standing up slowly.
 
 16
-00:00:44,120 --> 00:00:46,780
-Speaker 0: this like this would probably be one of the biggest.
+00:00:34,200 --> 00:00:36,200
+Speaker 1: Thank you, Doctor. I appreciate you listening.
 
 17
-00:00:47,340 --> 00:00:48,760
-Speaker 1: Let me cut you off right there Ryan.
+00:00:36,400 --> 00:00:38,600
+Speaker 0: Of course — that's my job. Are you getting enough to eat and drink during the day?
 
 18
-00:00:49,540 --> 00:00:50,120
-Speaker 1: I have a gun.
+00:00:38,800 --> 00:00:40,600
+Speaker 1: I try to. My daughter brings soup and we share lunch most afternoons.
 
 19
-00:00:50,440 --> 00:00:51,880
-Speaker 1: I'm going to squirt you right now.
+00:00:40,800 --> 00:00:43,200
+Speaker 0: That's excellent social support. Keep up the fluids — dehydration can cause dizziness too.
 
 20
-00:00:52,960 --> 00:00:56,180
-Speaker 0: If you squirt me, I'll be glad I'll squirt with a smile.
+00:00:43,400 --> 00:00:45,800
+Speaker 1: I'll make sure to sip more water during the day.
 
 21
-00:00:57,620 --> 00:01:01,800
-Speaker 1: That is a good thing good boy.
-"""
+00:00:46,000 --> 00:00:48,200
+Speaker 0: One more thing — would you like a referral to a gentle exercise group for balance and strength?
 
+22
+00:00:48,400 --> 00:00:50,200
+Speaker 1: Yes, please. That sounds lovely and social.
+
+23
+00:00:50,400 --> 00:00:53,000
+Speaker 0: I'll arrange it and we'll follow up in a month to see how you're doing. Anything else on your mind?
+
+24
+00:00:53,200 --> 00:00:54,800
+Speaker 1: No, Doctor — I'm grateful. Thank you for your help.
+
+25
+00:00:55,000 --> 00:00:57,000
+Speaker 0: You're very welcome, Mrs. Thompson. Take care, and call if anything changes.
+"""
 conversation = srt_to_conversation_rnbrad(srt_text)

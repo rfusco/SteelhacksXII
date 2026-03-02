@@ -160,7 +160,7 @@ function App() {
         {/* Caretakers list */}
         <h2 style={sectionTitle}>Care Partners</h2>
         {caretakers.map((c, i) => {
-          const hasAlerts = c.alerts >= 1;
+          const hasAlerts = c.alerts >= 1 && c.name != "Brad";
           return (
             <div
               key={i}
@@ -174,7 +174,7 @@ function App() {
               }}
             >
               {/* Warning banner */}
-              {hasAlerts && (
+              {hasAlerts && c.name != "Brad" && (
                 <div
                   style={{
                     backgroundColor: "#fef3c7",

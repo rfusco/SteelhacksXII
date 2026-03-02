@@ -14,8 +14,9 @@ function PersonPage() {
   const [personData, setPersonData] = useState(null);
   const [conversations, setConversations] = useState([]);
   const navigate = useNavigate();
-
+   
   useEffect(() => {
+    //create async arrow function to allow asynchronous data collection 
     async function fetchPerson() {
       try {
         const res = await fetch(`http://127.0.0.1:5000/person/${personName}`);
@@ -62,7 +63,7 @@ function PersonPage() {
     fontSize: "1.6rem",
     margin: "28px 0 16px",
     fontWeight: "700",
-    borderBottom: "3px solid #a16207",
+    borderBottom: "3px solid #161412",
     display: "inline-block",
     paddingBottom: "4px",
   };
